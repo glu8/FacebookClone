@@ -20,10 +20,8 @@ function New(props) {
 
     return (
         <div>
-            <h1>test</h1>
             <input name="title" value={post.title} onChange={handleChange} />
             <input name="body" value={post.body} onChange={handleChange}/>
-            <button onClick={() => {console.log(props)}}>log postKey</button>
 
             <button onClick={() => {
                 props.addPost(post);
@@ -33,7 +31,7 @@ function New(props) {
                     key: props.postKey
                 })
                 props.incrementKey();
-                }}>Submit</button>
+                }}>Post</button>
         </div>
     )
 }

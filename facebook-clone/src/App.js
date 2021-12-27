@@ -10,7 +10,6 @@ function App() {
   const [postKey, updateKey] = useState(0);
 
   function addPost(newPost) {
-    console.log(newPost)
     updatePosts([...posts, newPost]);
   }
 
@@ -18,10 +17,10 @@ function App() {
     updateKey(postKey + 1);
   }
 
-  function likePost(postKey) {
+  function likePost(postKey, increment) {
     let tempPosts = [...posts]
-    console.log(postKey)
-    tempPosts.filter((post) => (post.key === postKey)).map((post) => ( post.likes++ ));
+    console.log(increment)
+    tempPosts.filter((post) => (post.key === postKey)).map((post) => ( post.likes = post.likes + increment ));
     updatePosts(tempPosts)
   }
 
@@ -31,17 +30,22 @@ function App() {
     updatePosts(tempPosts);
   }
 
+  function updatePost(postKey, title, body) {
+    let tempPosts = [...posts];
+    tempPosts.filter((post) => (post.key === postKey)).map((post) => { post.title = title; post.body = body; return null; })
+    updatePosts(tempPosts);
+  }
+
   return (
     <div className="App">
+    <h1>Facebook Clone</h1>
 
     <div className="NewsFeed">
-      
-      <button onClick={() => {console.log(postKey)}}>log key</button>
 
       <New addPost={addPost} postKey={postKey} incrementKey={incrementKey}/>
 
       {posts.map( (post) => {
-        return <Post post={post} likePost={likePost} addComment={addComment}/>
+        return <Post post={post} likePost={likePost} addComment={addComment} updatePost={updatePost}/>
       })}
     </div>
 
