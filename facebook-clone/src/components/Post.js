@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Comment from './Comment.js';
-
+import '../App.css';
 
 function Post(props) {
 
@@ -16,29 +16,25 @@ function Post(props) {
         updateComment(e.target.value);
     }
 
-    function handleTitleChange(e) {
-        updateTitle(e.target.value);
-    }
-
     function handleBodyChange(e) {
         updateBody(e.target.value);
     }
 
     return (
-        <div>
+        <div className="Post">
+            <div className="UserInfo">
+                <p>{props.post.user}</p>
+            </div>
 
             <div>
                { edit ? 
                <div>
-
-               <input name="title" value={title} onChange={handleTitleChange}/>
                <input name="body" value={body} onChange={handleBodyChange}/>
                <button onClick={() => { 
                    props.updatePost(props.post.key, title, body)
                    updateEdit(0); }}>Update</button> 
                </div> : 
                <div>
-                <p>{props.post.title}</p>
                 <p>{props.post.body}</p>
                <button onClick={() => (updateEdit(1))}>Edit Post</button>
                </div> }
@@ -47,7 +43,7 @@ function Post(props) {
             <p>{props.post.likes} likes</p>
 
             <input name="comment" value={comment} onChange={handleCommentChange}/>
-        
+            
             { !liked ?  <button onClick={() => {
                 props.likePost(props.post.key, 1);
                 updateLiked(1);

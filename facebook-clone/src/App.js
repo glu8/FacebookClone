@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import './App.css';
-import Post from './components/Post.js'
-import New from './components/New.js'
-
+import Post from './components/Post.js';
+import New from './components/New.js';
+import Header from './components/Header.js';
 
 function App() {
 
   const [posts, updatePosts] = useState([]);
   const [postKey, updateKey] = useState(0);
+  const [user, updateUser] = useState("");
+  const [tempUser, updateTempUser] = useState("");
 
   function addPost(newPost) {
+    newPost.date = new Date();
     updatePosts([...posts, newPost]);
+    console.log(newPost)
   }
 
   function incrementKey() {
@@ -36,19 +40,34 @@ function App() {
     updatePosts(tempPosts);
   }
 
+  function handleTempUserChange(e) {
+    updateTempUser(e.target.value);
+}
+
   return (
     <div className="App">
-    <h1>Facebook Clone</h1>
 
+    <Header />
+
+    <div className="AppBody">
+    {user === "" ?  
+
+    <div className="Login">
+      <input name="user"  value={tempUser} onChange={handleTempUserChange} />
+      <button onClick={() => (updateUser(tempUser))}>Submit</button>
+    </div> 
+    :
     <div className="NewsFeed">
 
-      <New addPost={addPost} postKey={postKey} incrementKey={incrementKey}/>
+      <New addPost={addPost} postKey={postKey} incrementKey={incrementKey} user={user}/>
 
       {posts.map( (post) => {
         return <Post post={post} likePost={likePost} addComment={addComment} updatePost={updatePost}/>
       })}
     </div>
 
+    }
+    </div>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import Post from './Post';
+import '../App.css';
 
 function New(props) {
 
     const [post, updatePost] = useState({
-        key: props.postKey
+        key: props.postKey,
+        user: props.user
     });
 
     function handleChange(e) {
@@ -19,15 +20,16 @@ function New(props) {
     }
 
     return (
-        <div>
-            <input name="title" value={post.title} onChange={handleChange} />
-            <input name="body" value={post.body} onChange={handleChange}/>
+        <div className="New">
+            {/* <input name="title" className="smallInput blockChild" value={post.title} onChange={handleChange} /> */}
+            <textarea name="body" className="newPost" value={post.body} onChange={handleChange} rows="5"/>
 
             <button onClick={() => {
                 props.addPost(post);
                 updatePost({
-                    title: "",
+                    user: "",
                     body: "",
+                    date: "",
                     key: props.postKey
                 })
                 props.incrementKey();
