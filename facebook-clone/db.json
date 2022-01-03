@@ -1,4 +1,75 @@
 {
-  "posts": [],
-  "users": []
+  "posts": [
+    {
+      "user": "",
+      "body": "new post with fetch requests",
+      "date": "2022-01-03T03:37:02.978Z",
+      "key": 1,
+      "likes": 0,
+      "comments": [],
+      "id": 1
+    },
+    {
+      "user": "",
+      "body": "second post with fetch request",
+      "date": "2022-01-03T03:38:05.446Z",
+      "key": 2,
+      "likes": 0,
+      "comments": [],
+      "id": 2
+    },
+    {
+      "key": 0,
+      "user": "glu",
+      "body": "third post with fetch",
+      "likes": 0,
+      "comments": [],
+      "date": "2022-01-03T03:41:20.948Z",
+      "id": 3
+    },
+    {
+      "key": 0,
+      "user": "glu",
+      "body": "fourth post with await keyword",
+      "likes": 0,
+      "comments": [],
+      "date": "2022-01-03T03:44:50.981Z",
+      "id": 4
+    },
+    {
+      "user": "",
+      "body": "fifth post",
+      "date": "2022-01-03T03:45:11.243Z",
+      "key": 1,
+      "likes": 0,
+      "comments": [],
+      "id": 5
+    },
+    {
+      "user": "",
+      "body": "sixth post",
+      "date": "2022-01-03T03:45:22.189Z",
+      "key": 2,
+      "likes": 0,
+      "comments": [],
+      "id": 6
+    },
+    {
+      "user": "",
+      "body": "seventh post",
+      "date": "2022-01-03T04:13:59.808Z",
+      "key": 3,
+      "likes": 0,
+      "comments": [],
+      "id": 7
+    }
+  ],
+  "users": [
+    {
+      "username": "glu",
+      "name": "Geoffrey",
+      "location": "San Diego",
+      "id": 1
+    }
+  ]
 }

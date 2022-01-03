@@ -3,13 +3,17 @@ html {
 }
 
 .App {
-  text-align: center;
   background-color: whitesmoke;
   margin: 0px auto;
 }
 
 .AppBody {
   margin-top: 10px;
+}
+
+.Login {
+  margin: center;
+  text-align: center;
 }
 
 .New {
@@ -32,7 +36,15 @@ html {
 
 .Header {
   background-color: #4267B2;
-  /* padding: .01px; */
+  padding: .5em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Header p {
+  display: inline-block;
+  color: white;
+  padding: 5px;
 }
 
 .Header h1 {
