@@ -11,10 +11,17 @@ function App() {
   const [postKey, updateKey] = useState(0);
   const [user, updateUser] = useState("");
   const [tempUser, updateTempUser] = useState("");
+  const [userData, updateUserData] = useState({});
   const [createNewUser, updateCreateNewUser] = useState(false);
 
-  useEffect(() => {    getPosts();  }, []);
+  useEffect(() => {    
+    getPosts();  
+  }, []);
 
+  useEffect(() => {
+    console.log('getting user data')
+    getUserData();
+  }, [user])
 
   async function addPost(newPost) {
     newPost.date = new Date();
@@ -56,6 +63,19 @@ function App() {
     .catch ((error) => console.error(error));
   }
 
+  async function getUserData() {
+
+    if (user === "") {
+      updateUserData({})
+    } else {
+      return fetch('http://localhost:5000/users?username=' + user)
+      .then((response) => response.json())
+      .then((json) => updateUserData(json[0]))
+      .catch ((error) => console.error(error));
+    }
+  }
+
+
   async function submitPost(newPost) {
     return fetch("http://localhost:5000/posts", {
     method: 'POST',
@@ -68,11 +88,41 @@ function App() {
     .catch(error => console.log(error))
   }
 
+  async function checkExistingUser(username) {
+
+    let response = await fetch('http://localhost:5000/users?username=' + username)
+    .then((response) => response.json())
+    .catch ((error) => console.error(error));
+
+    if (response.length > 0) {
+        if (response[0].username === username) {
+            return true;
+        }
+    }
+
+    return false
+  }
+
+  async function login() {
+
+    let userExists = await checkExistingUser(tempUser)
+
+    if (!userExists) {
+      alert("User does not exist")
+      return false;
+    } 
+
+    updateUser(tempUser);
+    getPosts();
+    return true;
+  }
+
   return (
     <div className="App">
 
-    <Header user={user} updateUser={updateUser}/>
-    <button onClick={getPosts}>Get Posts</button>
+    <Header user={user} userData={userData} updateUser={updateUser}/>
+
+    <button onClick={()=>(console.log(userData))}>Get User Data</button>
     <button onClick={submitPost}>Submit Post</button>
 
     <div className="AppBody">
@@ -83,12 +133,12 @@ function App() {
 
       { createNewUser ? 
       <React.Fragment>
-      <NewUser updateCreateNewUser={updateCreateNewUser} updateUser={updateUser} />
+      <NewUser updateCreateNewUser={updateCreateNewUser} updateUser={updateUser} checkExistingUser={checkExistingUser}/>
       </React.Fragment>
       :
       <React.Fragment>
       <input name="user"  value={tempUser} onChange={handleTempUserChange} />
-      <button onClick={() => (updateUser(tempUser))}>Submit</button>
+      <button onClick={() => (login())}>Log In</button>
       <button onClick={() => (updateCreateNewUser(true))}>Create New User</button>
       </React.Fragment>
       }

@@ -18,7 +18,15 @@ function NewUser(props) {
     }
 
     async function createUser() {
-        return fetch('http://localhost:5000/users', {
+
+        let userExists = await props.checkExistingUser(user.username);
+
+        if (userExists) {
+            alert("Username already in use");
+            return false;
+        }
+
+            let response = fetch('http://localhost:5000/users', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
@@ -27,6 +35,14 @@ function NewUser(props) {
         body: JSON.stringify(user)
         }).then((response) => response.json())
         .catch(error => console.log(error))
+
+        console.log(response)
+
+        props.updateUser(user.username);
+        props.updateCreateNewUser(false);
+
+        return true;
+
     }
 
 
@@ -37,8 +53,6 @@ function NewUser(props) {
             <span> Location <input name="location" value={user.location} onChange={handleChange}/></span>
             <button onClick={() => {
                 createUser();
-                props.updateUser(user.username);
-                props.updateCreateNewUser(false);
                 }}>Submit</button>
             <button onClick={() => (props.updateCreateNewUser(false))}>Cancel</button>
 

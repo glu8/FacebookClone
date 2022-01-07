@@ -62,6 +62,24 @@
       "likes": 0,
       "comments": [],
       "id": 7
+    },
+    {
+      "key": 0,
+      "user": "jlu",
+      "body": "eigth post",
+      "likes": 0,
+      "comments": [],
+      "date": "2022-01-05T03:51:06.788Z",
+      "id": 8
+    },
+    {
+      "key": 0,
+      "user": "klu",
+      "body": "new post on second client",
+      "likes": 0,
+      "comments": [],
+      "date": "2022-01-07T03:33:33.263Z",
+      "id": 9
     }
   ],
   "users": [
@@ -70,6 +88,18 @@
       "name": "Geoffrey",
       "location": "San Diego",
       "id": 1
+    },
+    {
+      "username": "klu",
+      "name": "Kevin",
+      "location": "San Diego",
+      "id": 2
+    },
+    {
+      "username": "jlu",
+      "name": "Jeffrey",
+      "location": "San Diego",
+      "id": 3
     }
   ]
 }
