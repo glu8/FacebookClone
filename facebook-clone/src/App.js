@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
 import './App.css';
-import Post from './components/Post.js';
-import New from './components/New.js';
-import Header from './components/Header.js';
-import NewUser from './components/NewUser.js';
+import Profile from './components/Profile.js';
+import NewsFeed from './components/NewsFeed.js';
+import Home from './Home.js';
 
 function App() {
 
@@ -118,46 +118,14 @@ function App() {
   }
 
   return (
-    <div className="App">
 
-    <Header user={user} userData={userData} updateUser={updateUser}/>
+    <Routes>
+      <Route path="/" element={<Home user={user} userData={userData} updateUser={updateUser}/>}>
+        <Route path="/" element={<NewsFeed user={user} createNewUser={createNewUser} updateCreateNewUser={updateCreateNewUser} updateUser={updateUser} checkExistingUser={checkExistingUser} tempUser={tempUser} handleTempUserChange={handleTempUserChange} login={login} addPost={addPost} postKey={postKey} incrementKey={incrementKey} posts={posts} likePost={likePost} addCOmment={addComment} updatePost={updatePost}/>} />
+        <Route path="/profile" element={<Profile userData={userData} likePost={likePost} addComment={addComment} updatePost={updatePost} posts={posts}/>} />
+      </Route>
+    </Routes>
 
-    <button onClick={()=>(console.log(userData))}>Get User Data</button>
-    <button onClick={submitPost}>Submit Post</button>
-
-    <div className="AppBody">
-    {user === "" ?  
-
-    <div className="Login">
-
-
-      { createNewUser ? 
-      <React.Fragment>
-      <NewUser updateCreateNewUser={updateCreateNewUser} updateUser={updateUser} checkExistingUser={checkExistingUser}/>
-      </React.Fragment>
-      :
-      <React.Fragment>
-      <input name="user"  value={tempUser} onChange={handleTempUserChange} />
-      <button onClick={() => (login())}>Log In</button>
-      <button onClick={() => (updateCreateNewUser(true))}>Create New User</button>
-      </React.Fragment>
-      }
-
-
-    </div> 
-    :
-    <div className="NewsFeed">
-
-      <New addPost={addPost} postKey={postKey} incrementKey={incrementKey} user={user}/>
-
-      {posts.map( (post) => {
-        return <Post post={post} likePost={likePost} addComment={addComment} updatePost={updatePost}/>
-      })}
-    </div>
-
-    }
-    </div>
-    </div>
   );
 }
 
